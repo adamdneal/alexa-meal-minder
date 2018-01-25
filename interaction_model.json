@@ -1,0 +1,237 @@
+{
+  "languageModel": {
+    "types": [
+      {
+        "name": "MealName",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "Dinner",
+              "synonyms": [
+                "Supper"
+              ]
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Lunch",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Breakfast",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Snack",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Brunch",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Midnight snack",
+              "synonyms": []
+            }
+          }
+        ]
+      }
+    ],
+    "intents": [
+      {
+        "name": "AddMealIntent",
+        "samples": [
+          "add {meal_name}",
+          "i'm cooking {meal_name}",
+          "i ate {meal_name} for {meal_type}",
+          "i'm eating {meal_name} for {meal_type}"
+        ],
+        "slots": [
+          {
+            "name": "meal_name",
+            "type": "AMAZON.Food"
+          },
+          {
+            "name": "meal_type",
+            "type": "MealName"
+          }
+        ]
+      },
+      {
+        "name": "AMAZON.CancelIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.HelpIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.StopIntent",
+        "samples": []
+      },
+      {
+        "name": "MealCountIntent",
+        "samples": [
+          "how many times in the last {days} have I cooked {ingredient}",
+          "how many times in the last {days} have I eaten {ingredient}"
+        ],
+        "slots": [
+          {
+            "name": "days",
+            "type": "AMAZON.NUMBER"
+          },
+          {
+            "name": "ingredient",
+            "type": "AMAZON.Food"
+          }
+        ]
+      },
+      {
+        "name": "MealSearchIntent",
+        "samples": [
+          "when did i last cook {ingredient}",
+          "when's the last time i ate {ingredient}"
+        ],
+        "slots": [
+          {
+            "name": "ingredient",
+            "type": "AMAZON.Food"
+          }
+        ]
+      }
+    ],
+    "invocationName": "meal minder"
+  },
+  "prompts": [
+    {
+      "id": "Elicit.Intent-AddMealIntent.IntentSlot-meal_name",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "what ingredient"
+        },
+        {
+          "type": "PlainText",
+          "value": "what's the meal name"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-MealCountIntent.IntentSlot-days",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "how many days"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-MealCountIntent.IntentSlot-ingredient",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "what ingredient"
+        },
+        {
+          "type": "PlainText",
+          "value": "what's the meal name"
+        }
+      ]
+    },
+    {
+      "id": "Elicit.Intent-MealSearchIntent.IntentSlot-ingredient",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "what ingredient"
+        },
+        {
+          "type": "PlainText",
+          "value": "what's the meal name"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "intents": [
+      {
+        "name": "AddMealIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "meal_name",
+            "type": "AMAZON.Food",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicitation": "Elicit.Intent-AddMealIntent.IntentSlot-meal_name"
+            }
+          },
+          {
+            "name": "meal_type",
+            "type": "MealName",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
+          }
+        ]
+      },
+      {
+        "name": "MealCountIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "days",
+            "type": "AMAZON.NUMBER",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicitation": "Elicit.Intent-MealCountIntent.IntentSlot-days"
+            }
+          },
+          {
+            "name": "ingredient",
+            "type": "AMAZON.Food",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicitation": "Elicit.Intent-MealCountIntent.IntentSlot-ingredient"
+            }
+          }
+        ]
+      },
+      {
+        "name": "MealSearchIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "ingredient",
+            "type": "AMAZON.Food",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicitation": "Elicit.Intent-MealSearchIntent.IntentSlot-ingredient"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
